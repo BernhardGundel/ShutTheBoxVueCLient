@@ -1,14 +1,24 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <particles/>
+    <router-view/>
   </div>
 </template>
 
+<script>
+import particles from "./components/particles";
+
+export default {
+  name: "ShutTheBox",
+  components: {
+    particles
+  }
+};
+</script>
+
 <style lang="less">
+@import (css) url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400;900&display=swap');
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -29,4 +39,40 @@
     }
   }
 }
+html * {
+  font-family: 'Londrina Solid', cursive;
+}
+
+.menu-button {
+  width: 10em;
+  height: 3em;
+  font-size: 1.5em;
+  border: 2px solid black;
+  border-radius: .5em;
+  outline: none;
+  background-color: white;
+}
+
+.menu-button:hover {
+  animation: wobble 0.4s ease-in-out;
+  filter: invert(1);
+  transition: filter 0.3s ease;
+}
+
+@keyframes wobble {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.1);
+  }
+  100% {
+      transform: scale(1);
+  }
+}
+
+input[type="checkbox"] {
+  filter: grayscale(100%);
+}
+
 </style>
