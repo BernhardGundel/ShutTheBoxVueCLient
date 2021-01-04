@@ -27,7 +27,10 @@ export default Vue.component("dice", {
   components: {},
   props: {
     die1: Number,
-    die2: Number
+    die2: Number,
+  },
+  mounted() {
+    this.$store.dispatch("resetErrorMsg");
   },
   methods: {
     rollDice() {
@@ -35,8 +38,9 @@ export default Vue.component("dice", {
 
     },
     nextPlayer() {
+      this.$store.dispatch("sfxBtn");
       return this.$store.dispatch("nextPlayer");
-    },
+    }
   }
 });
 </script>

@@ -8,14 +8,15 @@
         </button>
         <br>
         <br>
-        <input class="scale-2" type="checkbox" id="cb-matchfield" name="fieldsize">
-        <label for="cb-matchfield">Großes Spielfeld</label>
+        <div>
+            <input class="scale-2" type="checkbox" id="cb-matchfield" name="fieldsize">
+            <label for="cb-matchfield">Großes Spielfeld</label>
+            <br>
+            <input class="scale-2" type="checkbox" id="cb-ai" name="ai">
+            <label for="cb-ai">Gegen KI spielen</label>
+        </div>
         <br>
-        <input class="scale-2" type="checkbox" id="cb-ai" name="ai">
-        <label for="cb-ai">Gegen KI antreten</label>
-        <br>
-        <br>
-        <button class="menu-button" onclick="location.href='/rules'">SPIELREGELN</button>
+        <button class="menu-button" @click="gotoRules()">SPIELREGELN</button>
     </div>
 </div>
 </template>
@@ -29,6 +30,10 @@ export default Vue.component("mainmenu", {
   methods: {
     startGame() {
       return this.$store.dispatch("startGame");
+    },
+    gotoRules() {
+      this.$store.dispatch("sfxBtn");
+      this.$router.push("rules");
     }
   }
 });
@@ -48,16 +53,20 @@ export default Vue.component("mainmenu", {
     }
 
     .header {
+        font-size: 4rem;
+        text-align: center;
         line-height: 4rem;
         white-space: nowrap;
     }
     .header-mirror {
-        line-height: 4rem;
-        white-space: nowrap;
+        font-size: 4rem;
+        text-align: center;
+        color: #eee;
+        transform: scale(1, -1);
     }
 
     .bop {
-    animation: bop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite alternate;
+        animation: bop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite alternate;
     }
 
     .bop2 {
@@ -84,19 +93,19 @@ export default Vue.component("mainmenu", {
         }
     }
 
-    @media only screen and (min-width : 667px) {
+    @media only screen and (max-width : 375px) {
         .menu-button {
-        font-size: 1rem;
+            font-size: 1rem;
         }
 
         .header {
-        font-size: 2rem;
-        line-height: 2rem;
-        white-space: nowrap;
+            font-size: 2rem;
+            line-height: 2rem;
+            white-space: nowrap;
         }
 
         .header-mirror {
-        font-size: 2rem;
+            font-size: 2rem;
             line-height: 2rem;
             white-space: nowrap;
         }

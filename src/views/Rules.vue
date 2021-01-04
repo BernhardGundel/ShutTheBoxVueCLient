@@ -41,9 +41,24 @@
         <p>Im Hauptmenü kann entschieden werden, ob man gegen einen "echten" Gegner oder eine KI antreten möchte.</p>
         <p>Außerdem kann ausgewählt werden, ob man mit einem kleinen oder einem großen Spielfeld spielen möchte.</p>
         <br>
-        <button class="menu-button" onclick="location.href='/'">ZURÜCK ZUM HAUPTMENÜ</button>
+        <button class="menu-button" @click="gotoMenu()">ZURÜCK ZUM HAUPTMENÜ</button>
     </div>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.component("rules", {
+  components: {},
+  props: {},
+  methods: {
+    gotoMenu() {
+      this.$store.dispatch("sfxBtn");
+      this.$router.push("/");
+    }
+  }
+});
+</script>
 
 <style scoped lang="less">
     .text-center {

@@ -24,13 +24,14 @@
         },
         methods: {
           backToMenu() {
+            this.$store.dispatch("sfxBtn");
             this.$router.push("/");
           }
         },
         computed: {
-            matchfield() {
-                return this.$store.state.controller.field
-            }
+          matchfield() {
+              return this.$store.state.controller.field
+          }
         }
     }
 </script>

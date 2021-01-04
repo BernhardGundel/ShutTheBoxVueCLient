@@ -5,13 +5,13 @@
         <div class="font-medium">Spieler 1: {{ scorePlayer1 }} Punkte</div>
         <div class="font-medium">Spieler 2: {{ scorePlayer2 }} Punkte</div>
         <br><br><br>
-          <div v-if="scorePlayer1 == scorePlayer2" class="font-medium">Das Spiel endet unentschieden :-(</div>
-        <div v-if="scorePlayer1 < scorePlayer2" class="font-medium">Spieler 1 gewinnt!</div>
-        <div v-if="scorePlayer1 > scorePlayer2" class="font-medium">Spieler 2 gewinnt!</div>
+          <div v-if="scorePlayer1 == scorePlayer2" class="font-medium">{{ playAaw() }} Das Spiel endet unentschieden :-(</div>
+        <div v-if="scorePlayer1 < scorePlayer2" class="font-medium">{{ playCheer() }} Spieler 1 gewinnt!</div>
+        <div v-if="scorePlayer1 > scorePlayer2" class="font-medium">{{ playCheer() }} Spieler 2 gewinnt!</div>
         <br>
         <br>
         <br>
-        <button onclick="location.href='/'" class="menu-button">ZURÜCK ZUM HAUPTMENÜ</button>
+        <button @click="gotoMenu()" class="menu-button">ZURÜCK ZUM HAUPTMENÜ</button>
     </div>
 </template>
 
@@ -19,9 +19,16 @@
   export default {
       name: 'Scoreboard',
       methods: {
-        goToMenu() {
+        gotoMenu() {
+          this.$store.dispatch("sfxBtn");
           this.$router.push("/");
         },
+        playCheer() {
+          this.$store.dispatch("sfxCheer");
+        },
+        playAaw() {
+          this.$store.dispatch("sfxAaw");
+        }
       },
       computed: {
         scorePlayer1() {

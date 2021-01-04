@@ -9,6 +9,9 @@ const websocket = new WebSocket("ws://localhost:9000/websocket");
 
 const SFX_SHUT = new Audio(require("../assets/sfx/shut.wav"));
 const SFX_ROLL = new Audio(require("../assets/sfx/rollDice.mp3"));
+const SFX_BTN = new Audio(require("../assets/sfx/btn.mp3"));
+const SFX_CHEER = new Audio(require("../assets/sfx/cheer.mp3"));
+const SFX_AAW = new Audio(require("../assets/sfx/aaw.mp3"));
 
 const initState = {
   controller: {
@@ -36,25 +39,24 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    startGame() {
+    startGame({dispatch}) {
       const checkBoxMatchfield = document.getElementById("cb-matchfield") as HTMLInputElement;
       const checkBoxAI = document.getElementById("cb-ai") as HTMLInputElement;
       const matchfieldBool = checkBoxMatchfield.checked;
       const aiBool = checkBoxAI.checked;
       websocket.send(JSON.stringify({"ai": aiBool, "bigMatchfield": matchfieldBool }));
       router.push("ingame");
+      dispatch("sfxBtn");
     },
 
-    shut({commit}, i) {
+    shut({dispatch}, i) {
       websocket.send(JSON.stringify({"index": i}));
-      this.dispatch('updateErrorMsg');
       SFX_SHUT.play();
     },
 
     rollDice() {
       websocket.send("rollDice");
-      this.dispatch("updateDice");
-      this.dispatch("updateErrorMsg");
+      store.dispatch("updateDice");
       SFX_ROLL.play();
     },
 
@@ -62,56 +64,65 @@ const store = new Vuex.Store({
       if (this.state.controller.dice) {
         const die1 = document.getElementById("die1");
         const die2 = document.getElementById("die2");
-        (die1 as HTMLElement).innerHTML = this.state.controller.dice.die1.toString();
-        (die2 as HTMLElement).innerHTML = this.state.controller.dice.die2.toString();
-      }
-    },
-
-    resetErrorMsg() {
-      const err = document.getElementById("err");
-      if (err) {
-        (err as HTMLElement).innerHTML = "ERROR";
-        (err as HTMLElement).style.visibility = "hidden";
-      }
-    },
-
-    updateErrorMsg() {
-      const msg = this.state.controller.error;
-      if (msg) {
-        const err = document.getElementById("err") as HTMLElement;
-        if (msg.length <= 1) {
-          err.innerHTML = "ERROR";
-          err.style.visibility = "hidden";
-        } else {
-          if (msg == "Dice roll not allowed") {
-            err.innerHTML = "Würfeln ist noch nicht erlaubt!";
-          } else if (msg == "This shut is not allowed") {
-            err.innerHTML = "Dieser Spielzug ist nicht erlaubt";
-          } else if (msg == "Please roll the dice first!") {
-            err.innerHTML = "Bitte zuerst würfeln!";
-          }
-          err.style.visibility = "visible";
+        if (die1 && die2) {
+          (die1 as HTMLElement).innerHTML = this.state.controller.dice.die1.toString();
+          (die2 as HTMLElement).innerHTML = this.state.controller.dice.die2.toString();
         }
       }
     },
 
-    nextPlayer() {
-      websocket.send("nextPlayer");
-      if (this.state.controller.turn < 1) {
-        store.dispatch("resetErrorMsg");
-      } else {
-        router.push("scoreboard");
+    resetErrorMsg() {
+      const err = document.getElementById("err") as HTMLElement;
+      if (err) {
+        err.style.visibility = "hidden";
       }
     },
 
-    undo() {
-      websocket.send("undo");
-      store.dispatch("updateErrorMsg");
+    updateErrorMsg({dispatch}) {
+      const msg = this.state.controller.error;
+      if (msg) {
+        const err = document.getElementById("err") as HTMLElement;
+        if (err) {
+          if (msg.length <= 1) {
+            dispatch("resetErrorMsg");
+          } else {
+            if (msg == "Dice roll not allowed!") {
+              err.innerHTML = "Würfeln ist noch nicht erlaubt!";
+            } else if (msg == "This shut is not allowed") {
+              err.innerHTML = "Dieser Spielzug ist nicht erlaubt";
+            } else if (msg == "Please roll the dice first!") {
+              err.innerHTML = "Bitte zuerst würfeln!";
+            }
+            err.style.visibility = "visible";
+          }
+        }
+      }
     },
 
-    redo() {
+    nextPlayer({dispatch}) {
+      websocket.send("nextPlayer");
+    },
+
+    undo({dispatch}) {
+      dispatch("sfxBtn");
+      websocket.send("undo");
+    },
+
+    redo({dispatch}) {
+      dispatch("sfxBtn");
       websocket.send("redo");
-      store.dispatch("updateErrorMsg");
+    },
+
+    sfxBtn() {
+      SFX_BTN.play();
+    },
+
+    sfxCheer() {
+      SFX_CHEER.play();
+    },
+
+    sfxAaw() {
+      SFX_AAW.play();
     }
   },
   getters: {
@@ -135,16 +146,18 @@ websocket.onerror = error => {
 
 websocket.onmessage = e => {
   if (typeof e.data === "string") {
-      const response = JSON.parse(e.data);
-      console.log(response);
-      store.commit("SET_CONTROLLER", response);
-      store.dispatch("updateDice");
-      store.dispatch("updateErrorMsg");
+    const response = JSON.parse(e.data);
+    console.log(response);
+    store.commit("SET_CONTROLLER", response);
+    store.dispatch("updateDice");
+    store.dispatch("updateErrorMsg");
 
-      if (store.state.controller.turn > 1) {
-          //location.href = "/scoreboard";
-          router.push("scoreboard");
+    // needed for AI to finish current game
+    if (store.state.controller.turn > 1) {
+      if (!router.currentRoute.path.endsWith("scoreboard")) {
+        router.push("scoreboard");
       }
+    }
   }
 };
 
