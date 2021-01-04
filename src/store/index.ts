@@ -28,7 +28,8 @@ const initState = {
     },
     turn: 0,
     error: ""
-  }
+  },
+  enableSound: true
 };
 
 const store = new Vuex.Store({
@@ -51,13 +52,13 @@ const store = new Vuex.Store({
 
     shut({dispatch}, i) {
       websocket.send(JSON.stringify({"index": i}));
-      SFX_SHUT.play();
+      dispatch("sfxShut");
     },
 
-    rollDice() {
+    rollDice({dispatch}) {
       websocket.send("rollDice");
       store.dispatch("updateDice");
-      SFX_ROLL.play();
+      dispatch("sfxRoll");
     },
 
     updateDice() {
@@ -113,18 +114,45 @@ const store = new Vuex.Store({
       websocket.send("redo");
     },
 
+    sfxShut() {
+      if (store.state.enableSound) {
+        SFX_SHUT.play();
+      }
+    },
+
+    sfxRoll() {
+      if (store.state.enableSound) {
+        SFX_ROLL.play();
+      }
+    },
+
     sfxBtn() {
-      SFX_BTN.play();
+      if (store.state.enableSound) {
+        SFX_BTN.play();
+      }
     },
 
     sfxCheer() {
-      SFX_CHEER.play();
+      if (store.state.enableSound) {
+        SFX_CHEER.play();
+      }
     },
 
     sfxAaw() {
-      SFX_AAW.play();
+      if (store.state.enableSound) {
+        SFX_AAW.play();
+      }
+    },
+
+    toggleSound() {
+      store.state.enableSound = !store.state.enableSound;
+    },
+
+    getSoundEnabled() {
+      return store.state.enableSound;
     }
   },
+  
   getters: {
     matchfield: state => {
       return state.controller.field;

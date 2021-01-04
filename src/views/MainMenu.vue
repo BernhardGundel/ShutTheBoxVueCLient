@@ -17,6 +17,10 @@
         </div>
         <br>
         <button class="menu-button" @click="gotoRules()">SPIELREGELN</button>
+        <br>
+        <br>
+        <button v-bind:class="getSoundEnabled"
+         class="menu-button" @click="toggleSound()"></button>
     </div>
 </div>
 </template>
@@ -29,11 +33,19 @@ export default Vue.component("mainmenu", {
   props: {},
   methods: {
     startGame() {
-      return this.$store.dispatch("startGame");
+      this.$store.dispatch("startGame");
     },
     gotoRules() {
       this.$store.dispatch("sfxBtn");
       this.$router.push("rules");
+    },
+    toggleSound() {
+        this.$store.dispatch("toggleSound");
+    }
+  },
+  computed: {
+    getSoundEnabled() {
+        return this.$store.dispatch("getSoundEnabled") ? 'sound-enabled-btn' : 'sound-disabled-btn';
     }
   }
 });
@@ -71,6 +83,28 @@ export default Vue.component("mainmenu", {
 
     .bop2 {
         animation: bop2 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite alternate;
+    }
+
+    .sound-enabled-btn {
+        width: 3rem;
+        height: 3rem;
+        padding: .5rem;
+        background-color: white;
+        background-image: url(../assets/img/volume.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-origin: content-box;
+    }
+
+    .sound-disabled-btn {
+        width: 3rem;
+        height: 3rem;
+        padding: .5rem;
+        background-color: white;
+        background-image: url(../assets/img/mute.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-origin: content-box;
     }
 
     @keyframes bop {
