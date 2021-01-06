@@ -43,6 +43,10 @@ html * {
   font-family: 'Londrina Solid', cursive;
 }
 
+button {
+  outline: none !important;
+}
+
 .menu-button {
   width: 10em;
   height: 3em;

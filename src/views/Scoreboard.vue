@@ -2,12 +2,21 @@
   <div class="center text-center">
         <div class="font-large"><u>GAME OVER!</u></div>
         <br>
-        <div class="font-medium">Spieler 1: {{ scorePlayer1 }} Punkte</div>
-        <div class="font-medium">Spieler 2: {{ scorePlayer2 }} Punkte</div>
+        <div>
+          <div class="inline font-medium">Spieler 1: {{ scorePlayer1 }} Punkte</div>
+          <img v-if="scorePlayer1 < scorePlayer2" src="../assets/img/crown.svg" width="40rem" class="inline crown"/>
+        </div>
+        <br>
+        <div>
+          <div class="inline font-medium">Spieler 2: {{ scorePlayer2 }} Punkte
+            <div class="inline" v-if="getAIEnabled()">(KI)</div>
+          </div>
+          <img v-if="scorePlayer1 > scorePlayer2" src="../assets/img/crown.svg" width="40rem" class="inline crown"/>
+        </div>
         <br><br><br>
           <div v-if="scorePlayer1 == scorePlayer2" class="font-medium">{{ playAaw() }} Das Spiel endet unentschieden :-(</div>
-        <div v-if="scorePlayer1 < scorePlayer2" class="font-medium">{{ playCheer() }} Spieler 1 gewinnt!</div>
-        <div v-if="scorePlayer1 > scorePlayer2" class="font-medium">{{ playCheer() }} Spieler 2 gewinnt!</div>
+        <div v-if="scorePlayer1 < scorePlayer2" class="font-medium">{{ playCheer() }} <u>Spieler 1 gewinnt!</u></div>
+        <div v-if="scorePlayer1 > scorePlayer2" class="font-medium">{{ playCheer() }} <u>Spieler 2 gewinnt!</u></div>
         <br>
         <br>
         <br>
@@ -28,6 +37,9 @@
         },
         playAaw() {
           this.$store.dispatch("sfxAaw");
+        },
+        getAIEnabled() {
+          return this.$store.state.controller.ai;
         }
       },
       computed: {
@@ -37,7 +49,7 @@
         scorePlayer2() {
           return this.$store.state.controller.score.scorePlayer2
         }
-      },
+      }
   }
 </script>
 
@@ -59,6 +71,17 @@
 
 .text-center {
     text-align: center;
+}
+
+.inline {
+  display: inline;
+}
+
+.crown {
+  padding: .25rem;
+  margin-bottom: 1.5rem;
+  margin-right: 0.5rem;
+  float: left;
 }
 
 </style>

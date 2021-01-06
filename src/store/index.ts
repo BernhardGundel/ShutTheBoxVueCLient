@@ -104,6 +104,18 @@ const store = new Vuex.Store({
       websocket.send("nextPlayer");
     },
 
+    getCurrentPlayerName() {
+      if (store.state.controller.turn == 0) {
+        return "Spieler 1";
+      } else {
+        if (store.state.controller.ai) {
+          return "KI";
+        } else {
+          return "Spieler 2";
+        }
+      }
+    },
+
     undo({dispatch}) {
       dispatch("sfxBtn");
       websocket.send("undo");

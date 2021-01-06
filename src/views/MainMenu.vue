@@ -43,9 +43,9 @@ export default Vue.component("mainmenu", {
         this.$store.dispatch("toggleSound");
     }
   },
-  computed: {
-    getSoundEnabled() {
-        return this.$store.dispatch("getSoundEnabled") ? 'sound-enabled-btn' : 'sound-disabled-btn';
+  asyncComputed: {
+    async getSoundEnabled() {
+        return await this.$store.dispatch("getSoundEnabled") ? 'sound-enabled-btn' : 'sound-disabled-btn';
     }
   }
 });
