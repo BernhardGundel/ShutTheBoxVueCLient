@@ -132,7 +132,7 @@ export default {
 #particles-js {
     position: absolute;
     background: white;
-    height: 100%;
+    height: 99%;
     width: 100%;
     z-index: -1;
 }
