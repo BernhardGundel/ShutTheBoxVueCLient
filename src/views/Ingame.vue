@@ -97,4 +97,9 @@
   right: 2.5%;
   //background-color: #ff0000aa;
 }
+
+.input-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
 </style>
