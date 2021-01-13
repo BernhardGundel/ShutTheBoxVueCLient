@@ -28,11 +28,6 @@ const routes: Array<RouteConfig> = [
     path: "/scoreboard",
     name: "Scoreboard",
     component: Scoreboard
-  },
-  {
-    path: "/offline",
-    name: "Offline",
-    component: Offline
   }
 ];
 
