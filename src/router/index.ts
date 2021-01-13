@@ -4,7 +4,6 @@ import MainMenu from "../views/MainMenu.vue";
 import Rules from "../views/Rules.vue";
 import Ingame from "../views/Ingame.vue";
 import Scoreboard from "../views/Scoreboard.vue";
-import Offline from "../views/Offline.vue";
 
 Vue.use(VueRouter);
 
