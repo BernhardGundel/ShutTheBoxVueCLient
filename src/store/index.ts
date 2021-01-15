@@ -39,7 +39,8 @@ const initState = {
     turn: 0,
     error: ""
   },
-  enableSound: true
+  enableSound: true,
+  cookie: document.cookie
 };
 
 const store = new Vuex.Store({
@@ -47,6 +48,9 @@ const store = new Vuex.Store({
   mutations: {
     SET_CONTROLLER(state, controller) {
       state.controller = controller;
+    },
+    SET_COOKIE(state, cookie) {
+      state.cookie = cookie
     }
   },
   actions: {
