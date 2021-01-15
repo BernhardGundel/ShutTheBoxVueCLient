@@ -2,10 +2,20 @@ import router from "@/router";
 import Vue from "vue";
 import Vuex from "vuex";
 import $ from "jquery";
+import axios from 'axios'
 
 Vue.use(Vuex);
 
 const websocket = new WebSocket("ws://localhost:9000/websocket");
+const axiosConfig = {
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+  crossdomain: true
+};
+
 
 const SFX_SHUT = new Audio(require("../assets/sfx/shut.wav"));
 const SFX_ROLL = new Audio(require("../assets/sfx/rollDice.mp3"));
@@ -40,22 +50,87 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    startGame({dispatch}) {
+    login({ commit }, user) {
+      axios.post("http://" + "localhost:9000" + "/signIn", user, $.extend(axiosConfig, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }))
+        .then(() => {
+          commit('SET_COOKIE', document.cookie)
+          if (store.getters.isLoggedIn) {
+            store.dispatch("showAlert", { type: "success", message: "Login Successful" });
+            router.push("/Game");
+          }
+        })
+        .catch(function (response) {
+          console.log("Something went wrong");
+        });
+    },
+
+    logout({ commit }) {
+      axios.get("http://" + "localhost:9000" + "/signOut", axiosConfig)
+        .then(() => {
+          if (!store.getters.isLoggedIn) {
+            router.push("/Login");
+          }
+          commit('SET_COOKIE', document.cookie)
+        })
+        .catch(() => {
+          console.log("Something went wrong");
+        })
+    },
+
+    register(user) {
+      axios.post("http://" + "localhost:9000" + "/signUp", user, $.extend(axiosConfig, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+      ))
+        .then(function () {
+          router.push("/login");
+          store.dispatch("showAlert", { type: "success", message: "Register Successful" });
+        }.bind(this))
+        .catch(() => {
+          console.log("Something went wrong");
+        });
+    },
+
+    googleLogin({ commit }) {
+      axios.get("http://" + "locahost:9000" + "/authenticate/google",
+        $.extend(axiosConfig, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }))
+        .then(function (response) {
+          commit('SET_COOKIE', document.cookie)
+          if (store.getters.isLoggedIn) {
+            window.location.replace("/");
+          }
+        })
+        .catch(() => {
+          console.log("Something went wrong");
+        });
+    },
+
+    startGame({ dispatch }) {
       const checkBoxMatchfield = document.getElementById("cb-matchfield") as HTMLInputElement;
       const checkBoxAI = document.getElementById("cb-ai") as HTMLInputElement;
       const matchfieldBool = checkBoxMatchfield.checked;
       const aiBool = checkBoxAI.checked;
-      websocket.send(JSON.stringify({"ai": aiBool, "bigMatchfield": matchfieldBool }));
+      websocket.send(JSON.stringify({ "ai": aiBool, "bigMatchfield": matchfieldBool }));
       router.push("ingame");
       dispatch("sfxBtn");
     },
 
-    shut({dispatch}, i) {
-      websocket.send(JSON.stringify({"index": i}));
+    shut({ dispatch }, i) {
+      websocket.send(JSON.stringify({ "index": i }));
       dispatch("sfxShut");
     },
 
-    rollDice({dispatch}) {
+    rollDice({ dispatch }) {
       websocket.send("rollDice");
       store.dispatch("updateDice");
       dispatch("sfxRoll");
@@ -79,7 +154,7 @@ const store = new Vuex.Store({
       }
     },
 
-    updateErrorMsg({dispatch}) {
+    updateErrorMsg({ dispatch }) {
       const msg = this.state.controller.error;
       if (msg) {
         const err = document.getElementById("err") as HTMLElement;
@@ -100,7 +175,7 @@ const store = new Vuex.Store({
       }
     },
 
-    nextPlayer({dispatch}) {
+    nextPlayer({ dispatch }) {
       websocket.send("nextPlayer");
     },
 
@@ -116,12 +191,12 @@ const store = new Vuex.Store({
       }
     },
 
-    undo({dispatch}) {
+    undo({ dispatch }) {
       dispatch("sfxBtn");
       websocket.send("undo");
     },
 
-    redo({dispatch}) {
+    redo({ dispatch }) {
       dispatch("sfxBtn");
       websocket.send("redo");
     },
@@ -164,7 +239,7 @@ const store = new Vuex.Store({
       return store.state.enableSound;
     }
   },
-  
+
   getters: {
     matchfield: state => {
       return state.controller.field;
