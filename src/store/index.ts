@@ -62,10 +62,7 @@ const store = new Vuex.Store({
       }))
         .then(() => {
           commit('SET_COOKIE', document.cookie)
-          if (store.getters.isLoggedIn) {
-            store.dispatch("showAlert", { type: "success", message: "Login Successful" });
-            router.push("/Game");
-          }
+          router.push("/");
         })
         .catch(function (response) {
           console.log("Something went wrong");
@@ -75,9 +72,7 @@ const store = new Vuex.Store({
     logout({ commit }) {
       axios.get("http://" + "localhost:9000" + "/signOut", axiosConfig)
         .then(() => {
-          if (!store.getters.isLoggedIn) {
-            router.push("/Login");
-          }
+          router.push("/login");
           commit('SET_COOKIE', document.cookie)
         })
         .catch(() => {
@@ -85,7 +80,7 @@ const store = new Vuex.Store({
         })
     },
 
-    register(user) {
+    register({ commit }, user) {
       axios.post("http://" + "localhost:9000" + "/signUp", user, $.extend(axiosConfig, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -94,7 +89,6 @@ const store = new Vuex.Store({
       ))
         .then(function () {
           router.push("/login");
-          store.dispatch("showAlert", { type: "success", message: "Register Successful" });
         }.bind(this))
         .catch(() => {
           console.log("Something went wrong");

@@ -1,6 +1,14 @@
 <template>
   <div>
-    <h1>Login</h1>
+    <h1>Registrieren</h1>
+    Vorname:
+    <br />
+    <input placeholder="Max" v-model="firstname" />
+    <br /><br />
+    Nachname:
+    <br />
+    <input placeholder="Mustermann" v-model="lastname" />
+    <br /><br />
     E-Mail-Adresse:
     <br />
     <input placeholder="player@shutthebox.de" v-model="email" />
@@ -8,16 +16,9 @@
     Passwort:
     <br />
     <input type="password" v-model="password" />
-    <br /><br />
     <div>
-      <button @click="login()">LOGIN</button>
+      <button @click="register()">ANMELDEN</button>
     </div>
-    <div>
-      <button @click="googleLogin()">LOGIN MIT GOOGLE</button>
-    </div>
-    <br><br>
-    Noch keinen Account? <br>
-    <button @click="gotoSignup()">REGISTRIEREN!</button>
   </div>
 </template>
 
@@ -28,6 +29,8 @@ import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 export default {
   data() {
     return {
+      firstname: "",
+      lastname: "",
       email: "",
       password: "",
       emailRules: [
@@ -40,25 +43,20 @@ export default {
   },
   mounted() {
     const cookie = document.cookie;
-    if (cookie.startsWith("authenticator=")) {
-      this.$router.push("/");
+    if (cookie.startsWith('authenticator=')) {
+        this.$router.push("/");
     }
   },
 
   methods: {
-    login() {
+    register() {
       const formData = new FormData();
+      formData.append("firstName", this.firstname);
+      formData.append("lastName", this.lastname);
       formData.append("email", this.email);
       formData.append("password", this.password);
-      //formData.append('rememberMe', true);
-      this.$store.dispatch("login", formData);
+      this.$store.dispatch("register", formData);
     },
-    googleLogin() {
-      this.$store.dispatch("googleLogin");
-    },
-    gotoSignup() {
-      this.$router.push("signup");
-    }
   },
 };
 </script>

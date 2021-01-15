@@ -5,6 +5,7 @@ import Rules from "../views/Rules.vue";
 import Ingame from "../views/Ingame.vue";
 import Scoreboard from "../views/Scoreboard.vue";
 import Login from "../views/Login.vue";
+import Signup from "../views/Signup.vue";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes: Array<RouteConfig> = [
     path: "/login",
     name: "Login",
     component: Login
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup
   }
 ];
 
