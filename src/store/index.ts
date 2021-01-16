@@ -2,7 +2,7 @@ import router from "@/router";
 import Vue from "vue";
 import Vuex from "vuex";
 import $ from "jquery";
-import axios from 'axios'
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -97,11 +97,11 @@ const store = new Vuex.Store({
     },
 
     googleLogin({ commit }) {
-      axios.get("http://" + "locahost:9000" + "/authenticate/google",
+      axios.get("https://" + "localhost:9000" + "/authenticate/google",
         $.extend(axiosConfig, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
-          }
+          },
         }))
         .then(function (response) {
           commit('SET_COOKIE', document.cookie)
