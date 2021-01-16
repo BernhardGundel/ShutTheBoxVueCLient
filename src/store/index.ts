@@ -6,8 +6,8 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
-const websocket = new WebSocket("wss://localhost:9000/websocket");
-
+const server = "shuttheboxserver.herokuapp.com"
+const websocket = new WebSocket("wss://" + server + "/websocket");
 const axiosConfig = {
   withCredentials: true,
   headers: {
@@ -56,7 +56,7 @@ const store = new Vuex.Store({
   },
   actions: {
     login({ commit }, user) {
-      axios.post("http://" + "localhost:9000" + "/signIn", user, $.extend(axiosConfig, {
+      axios.post("https://" + server + "/signIn", user, $.extend(axiosConfig, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -71,7 +71,7 @@ const store = new Vuex.Store({
     },
 
     logout({ commit }) {
-      axios.get("http://" + "localhost:9000" + "/signOut", axiosConfig)
+      axios.get("https://" + server + "/signOut", axiosConfig)
         .then(() => {
           router.push("/login");
           commit('SET_COOKIE', document.cookie)
@@ -82,7 +82,7 @@ const store = new Vuex.Store({
     },
 
     register({ commit }, user) {
-      axios.post("http://" + "localhost:9000" + "/signUp", user, $.extend(axiosConfig, {
+      axios.post("https://" + server + "/signUp", user, $.extend(axiosConfig, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
