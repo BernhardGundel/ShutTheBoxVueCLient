@@ -7,6 +7,7 @@ import axios from 'axios'
 Vue.use(Vuex);
 
 const websocket = new WebSocket("ws://localhost:9000/websocket");
+
 const axiosConfig = {
   withCredentials: true,
   headers: {
@@ -114,12 +115,16 @@ const store = new Vuex.Store({
     },
 
     startGame({ dispatch }) {
-      const checkBoxMatchfield = document.getElementById("cb-matchfield") as HTMLInputElement;
-      const checkBoxAI = document.getElementById("cb-ai") as HTMLInputElement;
-      const matchfieldBool = checkBoxMatchfield.checked;
-      const aiBool = checkBoxAI.checked;
-      websocket.send(JSON.stringify({ "ai": aiBool, "bigMatchfield": matchfieldBool }));
-      router.push("ingame");
+      if (websocket.OPEN) {
+        const checkBoxMatchfield = document.getElementById("cb-matchfield") as HTMLInputElement;
+        const checkBoxAI = document.getElementById("cb-ai") as HTMLInputElement;
+        const matchfieldBool = checkBoxMatchfield.checked;
+        const aiBool = checkBoxAI.checked;
+        websocket.send(JSON.stringify({ "ai": aiBool, "bigMatchfield": matchfieldBool }));
+        router.push("ingame");
+      } else {
+        location.reload();
+      }
       dispatch("sfxBtn");
     },
 
@@ -251,6 +256,10 @@ websocket.onopen = () => {
 
 websocket.onclose = () => {
   console.log("Connection with Websocket Closed!");
+  // Workaround for websocket timeout
+  if (!location.href.endsWith("login") && !location.href.endsWith("signup")) {
+    location.reload();
+  }
 };
 
 websocket.onerror = error => {

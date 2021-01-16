@@ -34,12 +34,20 @@ export default Vue.component("dice", {
   },
   methods: {
     rollDice() {
+      this.checkCookie();
       return this.$store.dispatch("rollDice");
 
     },
     nextPlayer() {
+      this.checkCookie();
       this.$store.dispatch("sfxBtn");
       return this.$store.dispatch("nextPlayer");
+    },
+    checkCookie() {
+      const cookie = document.cookie;
+      if (!cookie.startsWith("authenticator=")) {
+        this.$router.push("login");
+      } 
     }
   }
 });

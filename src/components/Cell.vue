@@ -20,7 +20,14 @@ export default Vue.component("cell", {
   },
   methods: {
     shut() {
+      this.checkCookie();
       return this.$store.dispatch("shut", this.index+1);
+    },
+    checkCookie() {
+      const cookie = document.cookie;
+      if (!cookie.startsWith("authenticator=")) {
+        this.$router.push("login");
+      } 
     }
   }
 });

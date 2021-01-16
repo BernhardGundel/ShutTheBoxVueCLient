@@ -39,7 +39,6 @@ export default {
   },
   mounted() {
     const cookie = document.cookie;
-    console.log(cookie);
     if (!cookie.startsWith("authenticator=")) {
       this.$router.push("login");
     }

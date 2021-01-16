@@ -47,7 +47,6 @@ export default Vue.component("mainmenu", {
   props: {},
   mounted() {
       const cookie = document.cookie;
-      console.log(cookie);
       if (!cookie.startsWith('authenticator=')) {
           this.$router.push("login");
       }

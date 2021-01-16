@@ -12,10 +12,18 @@ export default Vue.component("undo-redo", {
   components: {},
   methods: {
     undo() {
+      this.checkCookie();
       return this.$store.dispatch("undo");
     },
     redo() {
+      this.checkCookie();
       return this.$store.dispatch("redo");
+    },
+    checkCookie() {
+      const cookie = document.cookie;
+      if (!cookie.startsWith("authenticator=")) {
+        this.$router.push("login");
+      } 
     }
   }
 });
