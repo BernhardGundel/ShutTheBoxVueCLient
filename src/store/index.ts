@@ -6,7 +6,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
-const websocket = new WebSocket("ws://localhost:9000/websocket");
+const websocket = new WebSocket("wss://localhost:9000/websocket");
 
 const axiosConfig = {
   withCredentials: true,
