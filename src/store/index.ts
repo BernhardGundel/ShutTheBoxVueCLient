@@ -41,7 +41,7 @@ const initState = {
     error: ""
   },
   enableSound: true,
-  //cookie: document.cookie
+  cookie: document.cookie
 };
 
 const store = new Vuex.Store({
@@ -50,9 +50,9 @@ const store = new Vuex.Store({
     SET_CONTROLLER(state, controller) {
       state.controller = controller;
     },
-    /*SET_COOKIE(state, cookie) {
+    SET_COOKIE(state, cookie) {
       state.cookie = cookie
-    }*/
+    }
   },
   actions: {
     login({ commit }, user) {
@@ -62,7 +62,7 @@ const store = new Vuex.Store({
         }
       }))
         .then(() => {
-          //commit('SET_COOKIE', document.cookie)
+          commit('SET_COOKIE', document.cookie)
           router.push("/");
         })
         .catch(function (response) {
@@ -74,7 +74,7 @@ const store = new Vuex.Store({
       axios.get("https://" + server + "/signOut", axiosConfig)
         .then(() => {
           router.push("/login");
-          //commit('SET_COOKIE', document.cookie)
+          commit('SET_COOKIE', document.cookie)
         })
         .catch(() => {
           console.log("Something went wrong");
@@ -104,7 +104,7 @@ const store = new Vuex.Store({
           },
         }))
         .then(function (response) {
-          //commit('SET_COOKIE', document.cookie)
+          commit('SET_COOKIE', document.cookie)
           if (store.getters.isLoggedIn) {
             window.location.replace("/");
           }
