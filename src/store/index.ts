@@ -56,7 +56,7 @@ const store = new Vuex.Store({
   },
   actions: {
     login({ commit }, user) {
-      axios.post("http://" + server + "/signIn", user, $.extend(axiosConfig, {
+      axios.post("https://" + server + "/signIn", user, $.extend(axiosConfig, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -71,7 +71,7 @@ const store = new Vuex.Store({
     },
 
     logout({ commit }) {
-      axios.get("http://" + server + "/signOut", axiosConfig)
+      axios.get("https://" + server + "/signOut", axiosConfig)
         .then(() => {
           router.push("/login");
           commit('SET_COOKIE', document.cookie)
@@ -82,7 +82,7 @@ const store = new Vuex.Store({
     },
 
     register({ commit }, user) {
-      axios.post("http://" + server + "/signUp", user, $.extend(axiosConfig, {
+      axios.post("https://" + server + "/signUp", user, $.extend(axiosConfig, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
