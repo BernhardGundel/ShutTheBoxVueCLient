@@ -77,7 +77,7 @@ const store = new Vuex.Store({
         }
       }))
         .then((response) => {
-          console.log(response.headers);
+          console.log("Headers: ", response.headers);
           commit('SET_COOKIE', document.cookie)
           //commit('checkSignedIn');
           router.push("/");
