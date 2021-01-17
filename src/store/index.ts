@@ -72,7 +72,6 @@ const store = new Vuex.Store({
         }
       }))
         .then((response) => {
-          console.log("Headers: ", response.headers);
           commit('SET_COOKIE', document.cookie)
           router.push("/");
         })
@@ -268,10 +267,6 @@ websocket.onopen = () => {
 websocket.onclose = () => {
   console.log("Connection with Websocket Closed!");
   // Workaround for websocket timeout
-  console.log(location.href);
-  if (!location.href.endsWith("login") && !location.href.endsWith("signup")) {
-    location.reload();
-  }
 };
 
 websocket.onerror = error => {
