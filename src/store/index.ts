@@ -7,14 +7,12 @@ import axios from "axios";
 Vue.use(Vuex);
 
 const server = "shuttheboxserver.herokuapp.com"
-//const server = "localhost:9000"
 const websocket = new WebSocket("wss://" + server + "/websocket");
 const axiosConfig = {
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Access-Control-Allow-Origin': '*'
   },
   crossdomain: true
 };
@@ -44,7 +42,6 @@ const initState = {
   },
   enableSound: true,
   cookie: document.cookie,
-  loggedIn: false
 };
 
 const store = new Vuex.Store({
@@ -55,9 +52,6 @@ const store = new Vuex.Store({
     },
     SET_COOKIE(state, cookie) {
       state.cookie = cookie
-    },
-    SET_LOGIN(state, value) {
-      state.loggedIn = value;
     }
   },
   actions: {
@@ -80,7 +74,6 @@ const store = new Vuex.Store({
         .then((response) => {
           console.log("Headers: ", response.headers);
           commit('SET_COOKIE', document.cookie)
-          commit('checkSignedIn');
           router.push("/");
         })
         .catch(function (response) {
@@ -93,7 +86,6 @@ const store = new Vuex.Store({
         .then(() => {
           router.push("/login");
           commit('SET_COOKIE', document.cookie)
-          //commit('checkSignedIn');
         })
         .catch(() => {
           console.log("Something went wrong");
@@ -124,7 +116,6 @@ const store = new Vuex.Store({
         }))
         .then(function (response) {
           commit('SET_COOKIE', document.cookie)
-          //commit('checkSignedIn');
           if (store.getters.isLoggedIn) {
             window.location.replace("/");
           }

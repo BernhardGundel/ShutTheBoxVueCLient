@@ -39,9 +39,7 @@ export default {
   },
   mounted() {
     const cookie = document.cookie;
-    //if (cookie.startsWith("authenticator=")) {
-    this.$store.commit('checkSignedIn');
-    if (this.$store.state.loggedIn) { 
+    if (cookie.startsWith("authenticator=")) {
       this.$router.push("/");
     }
   },
@@ -51,7 +49,6 @@ export default {
       const formData = new FormData();
       formData.append("email", this.email);
       formData.append("password", this.password);
-      //formData.append('rememberMe', true);
       this.$store.dispatch("login", formData);
     },
     googleLogin() {
