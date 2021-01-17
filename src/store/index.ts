@@ -61,7 +61,7 @@ const store = new Vuex.Store({
   },
   actions: {
     checkSignedIn({commit}) {
-      axios.get("https://" + server + "/checkSignedIn", axiosConfig)
+      axios.get("http://" + server + "/checkSignedIn", axiosConfig)
       .then((response) => {
         commit('SET_LOGIN', true);
       })
@@ -71,7 +71,7 @@ const store = new Vuex.Store({
     },
 
     login({ commit }, user) {
-      axios.post("https://" + server + "/signIn", user, $.extend(axiosConfig, {
+      axios.post("http://" + server + "/signIn", user, $.extend(axiosConfig, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -88,7 +88,7 @@ const store = new Vuex.Store({
     },
 
     logout({ commit }) {
-      axios.get("https://" + server + "/signOut", axiosConfig)
+      axios.get("http://" + server + "/signOut", axiosConfig)
         .then(() => {
           router.push("/login");
           commit('SET_COOKIE', document.cookie)
@@ -100,7 +100,7 @@ const store = new Vuex.Store({
     },
 
     register({ commit }, user) {
-      axios.post("https://" + server + "/signUp", user, $.extend(axiosConfig, {
+      axios.post("http://" + server + "/signUp", user, $.extend(axiosConfig, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -115,7 +115,7 @@ const store = new Vuex.Store({
     },
 
     googleLogin({ commit }) {
-      axios.get("https://" + "localhost:9000" + "/authenticate/google",
+      axios.get("http://" + "localhost:9000" + "/authenticate/google",
         $.extend(axiosConfig, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
