@@ -47,11 +47,11 @@ export default Vue.component("mainmenu", {
   props: {},
   mounted() {
       const cookie = document.cookie;
-      //this.$store.commit('checkSignedIn');
-      //if (this.$store.state.loggedIn) { 
+      this.$store.commit('checkSignedIn');
+      if (this.$store.state.loggedIn) { 
       //if (!cookie.startsWith('authenticator=')) {
-      //    this.$router.push("login");
-      //}
+          this.$router.push("login");
+      }
   },
   methods: {
     startGame() {

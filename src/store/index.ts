@@ -79,7 +79,7 @@ const store = new Vuex.Store({
         .then((response) => {
           console.log("Headers: ", response.headers);
           commit('SET_COOKIE', document.cookie)
-          //commit('checkSignedIn');
+          commit('checkSignedIn');
           router.push("/");
         })
         .catch(function (response) {

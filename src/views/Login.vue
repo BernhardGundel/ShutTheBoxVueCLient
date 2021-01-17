@@ -39,9 +39,9 @@ export default {
   },
   mounted() {
     const cookie = document.cookie;
-    if (cookie.startsWith("authenticator=")) {
-    //this.$store.commit('checkSignedIn');
-    //if (this.$store.state.loggedIn) { 
+    //if (cookie.startsWith("authenticator=")) {
+    this.$store.commit('checkSignedIn');
+    if (this.$store.state.loggedIn) { 
       this.$router.push("/");
     }
   },
