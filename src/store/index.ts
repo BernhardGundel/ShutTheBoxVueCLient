@@ -9,7 +9,7 @@ Vue.use(Vuex);
 const server = "shuttheboxserver.herokuapp.com"
 const websocket = new WebSocket("wss://" + server + "/websocket");
 const axiosConfig = {
-  withCredentials: true,
+  //withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
