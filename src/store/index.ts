@@ -76,8 +76,8 @@ const store = new Vuex.Store({
         }
       }))
         .then(() => {
-          //commit('SET_COOKIE', document.cookie)
-          commit('checkSignedIn');
+          commit('SET_COOKIE', document.cookie)
+          //commit('checkSignedIn');
           router.push("/");
         })
         .catch(function (response) {
@@ -89,8 +89,8 @@ const store = new Vuex.Store({
       axios.get("https://" + server + "/signOut", axiosConfig)
         .then(() => {
           router.push("/login");
-          //commit('SET_COOKIE', document.cookie)
-          commit('checkSignedIn');
+          commit('SET_COOKIE', document.cookie)
+          //commit('checkSignedIn');
         })
         .catch(() => {
           console.log("Something went wrong");
@@ -120,8 +120,8 @@ const store = new Vuex.Store({
           },
         }))
         .then(function (response) {
-          //commit('SET_COOKIE', document.cookie)
-          commit('checkSignedIn');
+          commit('SET_COOKIE', document.cookie)
+          //commit('checkSignedIn');
           if (store.getters.isLoggedIn) {
             window.location.replace("/");
           }
