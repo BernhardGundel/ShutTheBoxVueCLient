@@ -49,9 +49,9 @@ export default Vue.component("mainmenu", {
       const cookie = document.cookie;
       //this.$store.commit('checkSignedIn');
       //if (this.$store.state.loggedIn) { 
-      if (!cookie.startsWith('authenticator=')) {
-          this.$router.push("login");
-      }
+      //if (!cookie.startsWith('authenticator=')) {
+      //    this.$router.push("login");
+      //}
   },
   methods: {
     startGame() {
