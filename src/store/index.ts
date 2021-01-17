@@ -76,7 +76,8 @@ const store = new Vuex.Store({
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }))
-        .then(() => {
+        .then((response) => {
+          console.log(response.headers);
           commit('SET_COOKIE', document.cookie)
           //commit('checkSignedIn');
           router.push("/");
