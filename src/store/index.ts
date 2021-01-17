@@ -108,7 +108,7 @@ const store = new Vuex.Store({
     },
 
     googleLogin({ commit }) {
-      axios.get("https://" + "localhost:9000" + "/authenticate/google",
+      axios.get("https://" + server + "/authenticate/google",
         $.extend(axiosConfig, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
