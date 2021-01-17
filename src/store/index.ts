@@ -7,7 +7,7 @@ import axios from "axios";
 Vue.use(Vuex);
 
 const server = "shuttheboxserver.herokuapp.com"
-const websocket = new WebSocket("wss://" + "3.225.119.137" + "/websocket");
+const websocket = new WebSocket("wss://" + server + "/websocket");
 const axiosConfig = {
   withCredentials: true,
   headers: {
