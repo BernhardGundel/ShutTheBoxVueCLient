@@ -276,7 +276,7 @@ websocket.onopen = () => {
 websocket.onclose = () => {
   console.log("Connection with Websocket Closed!");
   // Workaround for websocket timeout
-  if (!location.href.endsWith("login") && !location.href.endsWith("signup")) {
+  if (!location.href.endsWith("login") && !location.href.endsWith("signup") && !location.href.endsWith("/")) {
     location.reload();
   }
 };
