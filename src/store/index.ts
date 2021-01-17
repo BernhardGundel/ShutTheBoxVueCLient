@@ -41,7 +41,8 @@ const initState = {
     error: ""
   },
   enableSound: true,
-  cookie: document.cookie
+  cookie: document.cookie,
+  loggedIn: false
 };
 
 const store = new Vuex.Store({
@@ -52,9 +53,22 @@ const store = new Vuex.Store({
     },
     SET_COOKIE(state, cookie) {
       state.cookie = cookie
+    },
+    SET_LOGIN(state, value) {
+      state.loggedIn = value;
     }
   },
   actions: {
+    checkSignedIn({commit}) {
+      axios.get("https://" + server + "/checkSignedIn", axiosConfig)
+      .then((response) => {
+        commit('SET_LOGIN', true);
+      })
+      .catch(error => {
+        console.log("Du bist nicht eingeloggt.");
+      })
+    },
+
     login({ commit }, user) {
       axios.post("https://" + server + "/signIn", user, $.extend(axiosConfig, {
         headers: {
@@ -62,11 +76,12 @@ const store = new Vuex.Store({
         }
       }))
         .then(() => {
-          commit('SET_COOKIE', document.cookie)
+          //commit('SET_COOKIE', document.cookie)
+          commit('checkSignedIn');
           router.push("/");
         })
         .catch(function (response) {
-          console.log("Something went wrong");
+          console.log("Da ist etwas schief gelaufen.");
         });
     },
 
@@ -74,7 +89,8 @@ const store = new Vuex.Store({
       axios.get("https://" + server + "/signOut", axiosConfig)
         .then(() => {
           router.push("/login");
-          commit('SET_COOKIE', document.cookie)
+          //commit('SET_COOKIE', document.cookie)
+          commit('checkSignedIn');
         })
         .catch(() => {
           console.log("Something went wrong");
@@ -104,7 +120,8 @@ const store = new Vuex.Store({
           },
         }))
         .then(function (response) {
-          commit('SET_COOKIE', document.cookie)
+          //commit('SET_COOKIE', document.cookie)
+          commit('checkSignedIn');
           if (store.getters.isLoggedIn) {
             window.location.replace("/");
           }
