@@ -37,7 +37,7 @@ export default {
   },
   mounted() {
     this.$store.commit('checkSignedIn');
-    if (this.$store.state.signedIn) {
+    if (this.$store.state.signedIn||document.cookie.startsWith("OAuth2State")) {
       this.$router.push("/");
     }
   },
