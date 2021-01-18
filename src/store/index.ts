@@ -125,7 +125,7 @@ const store = new Vuex.Store({
     },
 
     startGame({ dispatch }) {
-      if (websocket.OPEN) {
+      if (websocket.readyState === websocket.OPEN) {
         const checkBoxMatchfield = document.getElementById("cb-matchfield") as HTMLInputElement;
         const checkBoxAI = document.getElementById("cb-ai") as HTMLInputElement;
         const matchfieldBool = checkBoxMatchfield.checked;
@@ -266,8 +266,8 @@ websocket.onopen = () => {
 
 websocket.onclose = () => {
   console.log("Connection with Websocket Closed!");
-  if (document.cookie.startsWith("authenticator=") && window.location.href.endsWith("/ingame")) {
-    window.location.reload();
+  if (document.cookie.startsWith("authenticator=") && location.href.endsWith("/ingame")) {
+    location.reload();
   }
 };
 
