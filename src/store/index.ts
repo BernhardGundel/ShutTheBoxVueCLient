@@ -62,11 +62,13 @@ const store = new Vuex.Store({
     checkSignedIn({commit}) {
       axios.get("https://" + server + "/checkSignedIn", axiosConfig)
       .then((response) => {
-        commit('SET_LOGIN', true);
+        console.log(response.data);
+        if(response.data === "You are successfully signed in.") {
+          commit('SET_LOGIN', true);
+        }
       })
       .catch(error => {
         console.log("Du bist nicht eingeloggt.");
-        commit('SET_LOGIN', false);
       })
     },
 
