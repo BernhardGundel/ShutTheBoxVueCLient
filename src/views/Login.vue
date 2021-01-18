@@ -36,10 +36,10 @@ export default {
     };
   },
   mounted() {
-    this.$store.commit('checkSignedIn');
-    if (!this.$store.state.signedIn) {
-      this.$router.push("/");
-    }
+    //this.$store.commit('checkSignedIn');
+    //if (!this.$store.state.signedIn) {
+    //  this.$router.push("/");
+    //}
   },
 
   methods: {
