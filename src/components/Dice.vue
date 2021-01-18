@@ -45,7 +45,7 @@ export default Vue.component("dice", {
     },
     checkCookie() {
       this.$store.commit('checkSignedIn');
-      if (this.$store.state.signedIn) {
+      if (!this.$store.state.signedIn) {
         this.$router.push("login");
       } 
     }

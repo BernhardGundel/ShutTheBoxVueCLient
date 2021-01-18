@@ -46,8 +46,8 @@ export default Vue.component("mainmenu", {
   components: {},
   props: {},
   mounted() {
-      const cookie = document.cookie;
-      if (!((document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State")))) {
+      this.$store.commit('checkSignedIn');
+      if (!this.$store.state.signedIn) {
           this.$router.push("login");
       }
   },
