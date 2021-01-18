@@ -53,7 +53,10 @@ export default Vue.component("mainmenu", {
   },
   methods: {
     startGame() {
-      this.$store.dispatch("startGame");
+      this.$store.commit('checkSignedIn');
+      if (this.$store.state.signedIn) {
+        this.$store.dispatch("startGame");
+      }
     },
     gotoRules() {
       this.$store.dispatch("sfxBtn");
