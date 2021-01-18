@@ -40,9 +40,7 @@ export default {
   mounted() {
     const cookie = document.cookie;
     if (!(document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State"))) {
-      if (this.$store.state.controller === {}) {
         this.$router.push("login");
-      }
     }
   },
   methods: {
