@@ -39,9 +39,7 @@ export default {
   },
   mounted() {
     const cookie = document.cookie;
-    this.$store.commit('checkSignedIn');
-    if (this.$store.state.loggedIn) {
-    //if (!cookie.startsWith("authenticator=")) {
+    if (!(document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State"))) {
       this.$router.push("login");
     }
   },
