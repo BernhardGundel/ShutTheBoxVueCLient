@@ -112,23 +112,6 @@ const store = new Vuex.Store({
         });
     },
 
-    googleLogin({ commit }) {
-      axios.get("https://" + server + "/authenticate/google",
-        $.extend(axiosConfig, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-        }))
-        .then(function (response) {
-          //commit('SET_COOKIE', document.cookie)
-          commit('SET_LOGIN', true);
-        })
-        .catch(() => {
-          console.log("Something went wrong");
-          commit('SET_LOGIN', false);
-        });
-    },
-
     startGame({ dispatch }) {
       if (websocket.readyState === websocket.OPEN) {
         const checkBoxMatchfield = document.getElementById("cb-matchfield") as HTMLInputElement;

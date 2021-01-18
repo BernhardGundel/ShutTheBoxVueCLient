@@ -50,7 +50,7 @@ export default {
       this.$store.dispatch("login", formData);
     },
     googleLogin() {
-      this.$store.dispatch("googleLogin");
+      location.replace("/authenticate/google");
     },
     gotoSignup() {
       this.$router.push("signup");
