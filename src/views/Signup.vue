@@ -41,9 +41,9 @@ export default {
     };
   },
   mounted() {
-    const cookie = document.cookie;
-    if ((document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State"))) {
-      this.$router.push("/");
+    this.$store.commit('checkSignedIn');
+      if (this.$store.state.signedIn) {
+        this.$router.push("/");
     }
   },
 

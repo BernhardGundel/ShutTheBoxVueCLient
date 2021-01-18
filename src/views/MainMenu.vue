@@ -53,8 +53,8 @@ export default Vue.component("mainmenu", {
   },
   methods: {
     startGame() {
-      const cookie = document.cookie;
-      if (!(document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State"))) {
+      this.$store.commit('checkSignedIn');
+      if (this.$store.state.signedIn) {
         this.$store.dispatch("startGame");
       }
     },
