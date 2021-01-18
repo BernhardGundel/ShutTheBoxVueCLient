@@ -266,7 +266,7 @@ websocket.onopen = () => {
 
 websocket.onclose = () => {
   console.log("Connection with Websocket Closed!");
-  if (document.cookie.startsWith("authenticator=") && location.href.endsWith("/ingame")) {
+  if ((document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State")) && location.href.endsWith("/ingame")) {
     location.reload();
   }
 };

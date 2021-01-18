@@ -45,7 +45,7 @@ export default Vue.component("dice", {
     },
     checkCookie() {
       const cookie = document.cookie;
-      if (!cookie.startsWith("authenticator=")) {
+      if (!((document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State")))) {
         this.$router.push("login");
       } 
     }

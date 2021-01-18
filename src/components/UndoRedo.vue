@@ -21,7 +21,7 @@ export default Vue.component("undo-redo", {
     },
     checkCookie() {
       const cookie = document.cookie;
-      if (!cookie.startsWith("authenticator=")) {
+      if (!((document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State")))) {
         this.$router.push("login");
       } 
     }
