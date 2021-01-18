@@ -38,9 +38,9 @@ export default {
     UndoRedo,
   },
   mounted() {
-    this.$store.commit('checkSignedIn');
-    if (!this.$store.state.signedIn) {
-        this.$router.push("login");
+    const cookie = document.cookie;
+    if (!(document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State"))) {
+      this.$router.push("login");
     }
   },
   methods: {

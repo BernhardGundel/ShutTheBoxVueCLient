@@ -44,8 +44,8 @@ export default Vue.component("dice", {
       return this.$store.dispatch("nextPlayer");
     },
     checkCookie() {
-      this.$store.commit('checkSignedIn');
-      if (!this.$store.state.signedIn) {
+      const cookie = document.cookie;
+      if (!(document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State"))) {
         this.$router.push("login");
       } 
     }

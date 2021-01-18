@@ -24,8 +24,8 @@ export default Vue.component("cell", {
       return this.$store.dispatch("shut", this.index+1);
     },
     checkCookie() {
-      this.$store.commit('checkSignedIn');
-      if (!this.$store.state.signedIn) {
+      const cookie = document.cookie;
+      if (!(document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State"))) {
         this.$router.push("login");
       } 
     }

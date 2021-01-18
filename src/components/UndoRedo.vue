@@ -20,10 +20,10 @@ export default Vue.component("undo-redo", {
       return this.$store.dispatch("redo");
     },
     checkCookie() {
-      this.$store.commit('checkSignedIn');
-      if (!this.$store.state.signedIn) {
+      const cookie = document.cookie;
+      if (!(document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State"))) {
         this.$router.push("login");
-      } 
+      }
     }
   }
 });
