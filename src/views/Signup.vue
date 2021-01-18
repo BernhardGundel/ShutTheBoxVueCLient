@@ -1,24 +1,24 @@
 <template>
   <div>
     <h1>Registrieren</h1>
-    Vorname:
-    <br />
-    <input placeholder="Max" v-model="firstname" />
-    <br /><br />
-    Nachname:
-    <br />
-    <input placeholder="Mustermann" v-model="lastname" />
-    <br /><br />
-    E-Mail-Adresse:
-    <br />
-    <input placeholder="player@shutthebox.de" v-model="email" />
-    <br /><br />
-    Passwort:
-    <br />
-    <input type="password" v-model="password" />
-    <div>
-      <button @click="register()">ANMELDEN</button>
-    </div>
+    <form id="signupform">
+      Vorname:
+      <br />
+      <input placeholder="Max" v-model="firstname" />
+      <br /><br />
+      Nachname:
+      <br />
+      <input placeholder="Mustermann" v-model="lastname" />
+      <br /><br />
+      E-Mail-Adresse:
+      <br />
+      <input placeholder="player@shutthebox.de" v-model="email" />
+      <br /><br />
+      Passwort:
+      <br />
+      <input type="password" v-model="password" />
+    </form>
+    <button @click="register()">ANMELDEN</button>
   </div>
 </template>
 

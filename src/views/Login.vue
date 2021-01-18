@@ -1,20 +1,18 @@
 <template>
   <div>
     <h1>Login</h1>
-    E-Mail-Adresse:
-    <br />
-    <input placeholder="player@shutthebox.de" v-model="email" />
-    <br /><br />
-    Passwort:
-    <br />
-    <input type="password" v-model="password" />
-    <br /><br />
-    <div>
+    <form id="loginform">
+      E-Mail-Adresse:
+      <br />
+      <input placeholder="player@shutthebox.de" v-model="email" />
+      <br /><br />
+      Passwort:
+      <br />
+      <input type="password" v-model="password" />
+      <br /><br />
       <button @click="login()">LOGIN</button>
-    </div>
-    <div>
-      <button @click="googleLogin()">LOGIN MIT GOOGLE</button>
-    </div>
+    </form>
+    <button @click="googleLogin()">LOGIN MIT GOOGLE</button>
     <br><br>
     Noch keinen Account? <br>
     <button @click="gotoSignup()">REGISTRIEREN!</button>

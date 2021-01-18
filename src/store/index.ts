@@ -266,11 +266,10 @@ websocket.onopen = () => {
 
 websocket.onclose = () => {
   console.log("Connection with Websocket Closed!");
-  // Workaround for websocket timeout
 };
 
 websocket.onerror = error => {
-  console.log("Error in Websocket Occured: " + error);
+  console.log("Error in Websocket Occured: ", error);
 };
 
 websocket.onmessage = e => {
