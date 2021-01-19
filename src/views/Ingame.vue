@@ -14,6 +14,7 @@
       class="disabledUndoRedo"
     ></div>
     <div id="shutthebox-game" class="matchfield-container">
+      <br />
       <h2 class="text-large">
         <u>{{ playername }}</u> ist an der Reihe
       </h2>
@@ -38,9 +39,11 @@ export default {
     UndoRedo,
   },
   mounted() {
-    this.$store.commit('checkSignedIn');
-    if (!(this.$store.state.signedIn||document.cookie.startsWith("OAuth2State"))) {
-        this.$router.push("login");
+    this.$store.commit("checkSignedIn");
+    if (
+      !(this.$store.state.signedIn || document.cookie.startsWith("OAuth2State"))
+    ) {
+      this.$router.push("login");
     }
   },
   methods: {
@@ -121,15 +124,18 @@ export default {
 }
 
 /* Smartphones (portrait) */
- @media only screen
- and (max-width : 375px) {
-   .matchfield-container {
-        position: absolute;
-        top: 35%;
-        left: 0%;
-        transform: translate(0%, -50%);
-        margin-left: 0.125rem;
-        width: 100%;
-    }
- }
+@media only screen and (max-width: 375px) {
+  .matchfield-container {
+    position: absolute;
+    top: 35%;
+    left: 0%;
+    transform: translate(0%, -50%);
+    margin-left: 0.125rem;
+    width: 100%;
+  }
+  .text-large {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+}
 </style>
