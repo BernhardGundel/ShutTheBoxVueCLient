@@ -61,4 +61,16 @@ export default Vue.component("cell", {
 .font-light {
   font-weight: 300;
 }
+
+@media only screen
+ and (max-width : 375px) {
+  .cell {
+    width: 1.75rem;
+    height: 3rem;
+  }
+  .cell:hover {
+      filter: invert(1);
+      transition: filter 0.3s ease;
+  }
+ }
 </style>

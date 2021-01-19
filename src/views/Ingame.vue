@@ -14,9 +14,9 @@
       class="disabledUndoRedo"
     ></div>
     <div id="shutthebox-game" class="matchfield-container">
-      <div class="text-large">
+      <h2 class="text-large">
         <u>{{ playername }}</u> ist an der Reihe
-      </div>
+      </h2>
       <br />
       <matchfield v-bind:matchfield="matchfield"></matchfield>
       <br />
@@ -119,4 +119,17 @@ export default {
   cursor: not-allowed;
   pointer-events: none;
 }
+
+/* Smartphones (portrait) */
+ @media only screen
+ and (max-width : 375px) {
+   .matchfield-container {
+        position: absolute;
+        top: 35%;
+        left: 0%;
+        transform: translate(0%, -50%);
+        margin-left: 0.125rem;
+        width: 100%;
+    }
+ }
 </style>
