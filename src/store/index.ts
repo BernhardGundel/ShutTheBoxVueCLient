@@ -88,7 +88,7 @@ const store = new Vuex.Store({
     logout({ commit }) {
       axios.get("https://" + server + "/signOut", axiosConfig)
         .then(() => {
-          router.push("/login");
+          router.push("login");
           //commit('SET_COOKIE', document.cookie)
           commit('SET_LOGIN', false);
         })
@@ -105,7 +105,7 @@ const store = new Vuex.Store({
       }
       ))
         .then(function () {
-          router.push("/login");
+          router.push("login");
         }.bind(this))
         .catch(() => {
           console.log("Something went wrong");
