@@ -21,7 +21,7 @@ export default Vue.component("undo-redo", {
     },
     checkCookie() {
       this.$store.commit('checkSignedIn');
-      if (!(this.$store.state.signedIn||document.cookie.startsWith("OAuth2State"))) {
+      if (!this.$store.state.signedIn) {
         this.$router.push("login");
       } 
     }

@@ -47,14 +47,14 @@ export default Vue.component("mainmenu", {
   props: {},
   mounted() {
       this.$store.commit('checkSignedIn');
-      if (!(this.$store.state.signedIn||document.cookie.startsWith("OAuth2State"))) {
+      if (!this.$store.state.signedIn) {
           this.$router.push("login");
       }
   },
   methods: {
     startGame() {
       this.$store.commit('checkSignedIn');
-      if (this.$store.state.signedIn||document.cookie.startsWith("OAuth2State")) {
+      if (this.$store.state.signedIn) {
         this.$store.dispatch("startGame");
       }
     },
