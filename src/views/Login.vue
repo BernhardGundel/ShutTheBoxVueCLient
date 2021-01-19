@@ -12,6 +12,7 @@
       <br /><br />
       <button @click="login()">LOGIN</button>
     </form>
+    <br>
     <button @click="googleLogin()">LOGIN MIT GOOGLE</button>
     <br><br>
     Noch keinen Account? <br>
