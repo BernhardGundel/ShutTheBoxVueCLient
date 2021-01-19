@@ -120,6 +120,8 @@ export default Vue.component("mainmenu", {
   top: 1.5%;
   right: 1.5%;
   font-size: 1rem;
+  padding-left: 0.125rem;
+  padding-right: 0.125rem;
 }
 
 .sound-enabled-btn {

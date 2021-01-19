@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class=center>
     <h1>Login</h1>
     <form id="loginform">
       E-Mail-Adresse:
@@ -36,10 +36,6 @@ export default {
     };
   },
   mounted() {
-    //this.$store.commit('checkSignedIn');
-    //if (this.$store.state.signedIn||document.cookie.startsWith("OAuth2State")) {
-    //  this.$router.push("/");
-    //}
   },
 
   methods: {
@@ -58,3 +54,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .center {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+</style>

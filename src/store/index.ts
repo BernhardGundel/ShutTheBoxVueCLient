@@ -51,9 +51,6 @@ const store = new Vuex.Store({
     SET_CONTROLLER(state, controller) {
       state.controller = controller;
     },
-    SET_COOKIE(state, cookie) {
-      state.cookie = cookie
-    },
     SET_LOGIN(state, value) {
       state.signedIn = value;
     }
@@ -76,7 +73,6 @@ const store = new Vuex.Store({
         }
       }))
         .then((response) => {
-          //commit('SET_COOKIE', document.cookie)
           commit('SET_LOGIN', true);
           router.push("/");
         })
@@ -89,7 +85,6 @@ const store = new Vuex.Store({
       axios.get("https://" + server + "/signOut", axiosConfig)
         .then(() => {
           router.push("/login");
-          //commit('SET_COOKIE', document.cookie)
           commit('SET_LOGIN', false);
         })
         .catch(() => {
@@ -254,7 +249,7 @@ websocket.onopen = () => {
 
 websocket.onclose = () => {
   console.log("Connection with Websocket Closed!");
-  if ((document.cookie.startsWith("authenticator=")||document.cookie.startsWith("OAuth2State")) && location.href.endsWith("/ingame")) {
+  if ((store.state.loggedIn||document.cookie.startsWith("OAuth2State")) && location.href.endsWith("/ingame")) {
     location.reload();
   }
 };

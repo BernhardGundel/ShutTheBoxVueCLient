@@ -1,24 +1,30 @@
 <template>
   <div>
-    <h1>Registrieren</h1>
-    <form id="signupform">
-      Vorname:
-      <br />
-      <input placeholder="Max" v-model="firstname" />
-      <br /><br />
-      Nachname:
-      <br />
-      <input placeholder="Mustermann" v-model="lastname" />
-      <br /><br />
-      E-Mail-Adresse:
-      <br />
-      <input placeholder="player@shutthebox.de" v-model="email" />
-      <br /><br />
-      Passwort:
-      <br />
-      <input type="password" v-model="password" />
-    </form>
-    <button @click="register()">ANMELDEN</button>
+    <button
+        class="menu-button back-to-login-button"
+        @click="backToLogin()"
+      ></button>
+    <div class="center">
+      <h1>Registrieren</h1>
+      <form id="signupform">
+        Vorname:
+        <br />
+        <input placeholder="Max" v-model="firstname" />
+        <br /><br />
+        Nachname:
+        <br />
+        <input placeholder="Mustermann" v-model="lastname" />
+        <br /><br />
+        E-Mail-Adresse:
+        <br />
+        <input placeholder="player@shutthebox.de" v-model="email" />
+        <br /><br />
+        Passwort:
+        <br />
+        <input type="password" v-model="password" />
+      </form>
+      <button @click="register()">ANMELDEN</button>
+    </div>
   </div>
 </template>
 
@@ -56,6 +62,33 @@ export default {
       formData.append("password", this.password);
       this.$store.dispatch("register", formData);
     },
+    backToMenu() {
+      this.$store.dispatch("sfxBtn");
+      this.$router.push("/");
+    },
   },
 };
 </script>
+
+<style scoped>
+  .center {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+  .back-to-login-button {
+    position: absolute;
+    top: 2.5%;
+    left: 2.5%;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.5rem;
+    background-color: white;
+    background-image: url(../assets/img/arrow-left.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+  }
+</style>

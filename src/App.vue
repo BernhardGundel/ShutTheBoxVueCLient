@@ -79,4 +79,67 @@ input[type="checkbox"] {
   filter: grayscale(100%);
 }
 
+/*********************
+ * RESPONSIVE DESIGN *
+ *********************/
+
+ /* Smartphones (portrait) */
+ @media only screen
+ and (max-width : 375px) {
+    .center {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
+
+    .header {
+        line-height: 4rem;
+        white-space: nowrap;
+    }
+    .header-mirror {
+        line-height: 4rem;
+        white-space: nowrap;
+    }
+
+    .cell {
+        width: 1.75rem;
+        height: 3rem;
+    }
+
+    .cell:hover {
+        filter: invert(1);
+        transition: filter 0.3s ease;
+    }
+
+    .cell-shut {
+        width: 1.75rem;
+        height: 3rem;
+        transform: scale(1, -1);
+    }
+
+    .matchfield-container {
+        position: absolute;
+        top: 35%;
+        left: 0%;
+        transform: translate(0%, -50%);
+        margin-left: 0.125rem;
+        width: 100%;
+    }
+    .dice-container {
+         position: absolute;
+         left: 50%;
+         transform: translateX(-50%);
+    }
+
+    .font-large {
+        font-size: 3rem;
+        white-space: nowrap;
+    }
+
+    .font-medium {
+         font-size: 1.75rem;
+     }
+}
+
 </style>
